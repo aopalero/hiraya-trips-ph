@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { 
   Plane, 
   Globe, 
@@ -131,10 +132,11 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <section className="relative py-20 hero-gradient overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
             alt="Travel services"
-            className="w-full h-full object-cover opacity-30"
+            fill
+            className="object-cover opacity-30"
           />
          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60" />
         </div>
@@ -182,9 +184,11 @@ export default function ServicesPage() {
                 <motion.div key={index} variants={itemVariants}>
                   <Card className="h-full overflow-hidden card-hover border-0 shadow-lg bg-background">
                     <div className="relative overflow-hidden">
-                      <img
+                      <Image
                         src={service.image}
                         alt={service.title}
+                        width={800}
+                        height={400}
                         className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                         onError={(e) => {
                           e.currentTarget.src = "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
@@ -249,7 +253,7 @@ export default function ServicesPage() {
               Why Choose <span className="text-primary">Our Services?</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-medium leading-relaxed">
-              We're committed to providing the best travel experience with these key benefits.
+              We&apos;re committed to providing the best travel experience with these key benefits.
             </p>
           </motion.div>
 

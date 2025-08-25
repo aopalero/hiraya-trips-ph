@@ -85,7 +85,7 @@ export function Testimonials() {
             What Our <span className="text-primary">Happy Customers</span> Say
           </h2>
           <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-medium leading-relaxed">
-            Don't just take our word for it - hear from thousands of satisfied Filipino families who have traveled with us.
+            Don&apos;t just take our word for it - hear from thousands of satisfied Filipino families who have traveled with us.
           </p>
         </motion.div>
 
@@ -111,7 +111,7 @@ export function Testimonials() {
             </CardHeader>
             <CardContent className="text-center">
               <blockquote className="text-lg sm:text-xl text-gray-700 leading-relaxed font-normal mb-6 italic">
-                "{currentTestimonial.text}"
+                &ldquo;{currentTestimonial.text}&rdquo;
               </blockquote>
               <div className="flex justify-center space-x-1 mb-6" role="img" aria-label={`${currentTestimonial.rating} out of 5 stars`}>
                 {[...Array(currentTestimonial.rating)].map((_, i) => (

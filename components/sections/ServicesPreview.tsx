@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { 
   Plane, 
   Globe, 
@@ -128,10 +129,11 @@ export function ServicesPreview() {
     <section className="relative py-20 overflow-hidden" aria-label="Travel services preview">
       {/* Background Image with Dark Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
           alt="Travel services background"
-          className="w-full h-full object-cover opacity-20"
+          fill
+          className="object-cover opacity-20"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/80" />
       </div>
@@ -165,9 +167,11 @@ export function ServicesPreview() {
             <motion.div key={index} variants={itemVariants} role="listitem">
               <Card className="h-full overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-white rounded-2xl">
                 <div className="relative overflow-hidden">
-                  <img
+                  <Image
                     src={service.image}
                     alt={`${service.title} service`}
+                    width={800}
+                    height={400}
                     className="w-full h-52 object-cover transition-transform duration-300 hover:scale-110"
                     onError={handleImageError}
                   />

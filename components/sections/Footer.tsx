@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Plane, Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react"
 import { COMPANY, SOCIAL_LINKS, NAV_LINKS } from "@/lib/constants"
-import type { SocialLink, ContactInfo, NavLink } from "@/lib/types"
+import type { SocialLink, ContactInfo } from "@/lib/types"
 
 /**
  * Contact information data with icons

@@ -124,7 +124,7 @@ export function WhyChooseUs() {
             <span className="text-primary">HirayaTripsPH</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-medium leading-relaxed">
-            We've been helping families create unforgettable memories through affordable and reliable travel solutions.
+            We&apos;ve been helping families create unforgettable memories through affordable and reliable travel solutions.
           </p>
         </motion.div>
 
@@ -171,7 +171,7 @@ export function WhyChooseUs() {
           <div className="text-center mb-12">
             <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-sm">Our Value Proposition</h3>
             <p className="text-lg text-blue-100 max-w-2xl mx-auto font-medium leading-relaxed">
-              We're committed to providing the best travel experience with these key benefits.
+              We&apos;re committed to providing the best travel experience with these key benefits.
             </p>
           </div>
           

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Phone, Mail, Clock, MessageCircle } from "lucide-react"
 
 export default function ContactPage() {
@@ -11,10 +12,11 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="relative py-20 hero-gradient overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
             alt="Beautiful mountain landscape for travel inspiration"
-            className="w-full h-full object-cover opacity-30"
+            fill
+            className="object-cover opacity-30"
           />
          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60" />
         </div>
@@ -40,7 +42,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl sm:text-xl text-white mb-8 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-xl"
             >
-              Get in touch with our travel experts at HirayaTripsPH. We're here to help you plan the perfect trip with personalized service and unbeatable prices.
+              Get in touch with our travel experts at HirayaTripsPH. We&apos;re here to help you plan the perfect trip with personalized service and unbeatable prices.
             </motion.p>
           </motion.div>
         </div>

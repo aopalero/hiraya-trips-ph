@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { Search, Calendar, Plane } from "lucide-react"
 
 /**
@@ -17,10 +18,11 @@ export function Hero() {
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
           alt="Beautiful mountain landscape for travel inspiration"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/75 to-black/85" />
       </div>
