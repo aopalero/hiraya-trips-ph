@@ -9,7 +9,7 @@
 export const COMPANY = {
   name: "HirayaTripsPH",
   tagline: "Your Affordable Getaway Solution",
-  description: "From domestic flights to international adventures, ferry and bus tickets, or complete holiday packages – we make your dream trips simple, reliable, and budget-friendly with HirayaTripsPH.",
+  description: "Flights, ferry, bus, and holiday packages – all simple, reliable, and budget-friendly with HirayaTripsPH.",
   contact: {
     phone: "+63 912 345 6789",
     email: "info@hirayatripsph.com",
