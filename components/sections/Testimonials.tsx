@@ -12,7 +12,7 @@ const testimonials = [
     name: "Maria Santos",
     location: "Manila",
     rating: 5,
-    text: "Astorga Travel made our family vacation to Boracay absolutely perfect! The prices were unbeatable and the service was exceptional. Highly recommended!"
+    text: "HirayaTripsPH Travel made our family vacation to Boracay absolutely perfect! The prices were unbeatable and the service was exceptional. Highly recommended!"
   },
   {
     name: "Juan Dela Cruz",
