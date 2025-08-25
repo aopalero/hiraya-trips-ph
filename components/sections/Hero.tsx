@@ -5,9 +5,16 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Search, Calendar, Plane } from "lucide-react"
 
+/**
+ * Hero section component featuring a search interface and call-to-action buttons
+ * Uses Framer Motion for smooth animations and includes a search form
+ */
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section 
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      aria-label="Hero section with travel search"
+    >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -51,27 +58,33 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="bg-white/98 backdrop-blur-sm rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto mb-10 shadow-2xl border border-gray-200"
           >
-            <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <form className="flex flex-col sm:flex-row gap-4 items-center" role="search">
               <div className="flex-1 flex items-center bg-gray-50 rounded-xl px-4 py-4 border border-gray-200">
-                <Search className="w-6 h-6 text-gray-500 mr-3" />
+                <Search className="w-6 h-6 text-gray-500 mr-3" aria-hidden="true" />
                 <input
                   type="text"
                   placeholder="Where do you want to go?"
                   className="flex-1 bg-transparent border-none outline-none text-gray-900 placeholder-gray-600 text-lg font-medium"
+                  aria-label="Destination search"
                 />
               </div>
               <div className="flex items-center bg-gray-50 rounded-xl px-4 py-4 border border-gray-200">
-                <Calendar className="w-6 h-6 text-gray-500 mr-3" />
+                <Calendar className="w-6 h-6 text-gray-500 mr-3" aria-hidden="true" />
                 <input
                   type="date"
                   className="bg-transparent border-none outline-none text-gray-900 text-lg font-medium"
+                  aria-label="Travel date"
                 />
               </div>
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-lg min-w-[120px]">
-                <Plane className="w-6 h-6 mr-2" />
+              <Button 
+                type="submit"
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-lg min-w-[120px]"
+              >
+                <Plane className="w-6 h-6 mr-2" aria-hidden="true" />
                 Search
               </Button>
-            </div>
+            </form>
           </motion.div>
 
           {/* CTA Buttons */}
@@ -81,10 +94,18 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            <Button asChild size="lg" className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 text-white font-extrabold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 border-2 border-white/20">
+            <Button 
+              asChild 
+              size="lg" 
+              className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 text-white font-extrabold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 border-2 border-white/20"
+            >
               <Link href="/contact">Get a Free Quote</Link>
             </Button>
-            <Button asChild size="lg" className="text-lg px-10 py-6 bg-white/95 hover:bg-white text-gray-900 hover:text-gray-700 font-extrabold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 border-2 border-white/30 backdrop-blur-sm">
+            <Button 
+              asChild 
+              size="lg" 
+              className="text-lg px-10 py-6 bg-white/95 hover:bg-white text-gray-900 hover:text-gray-700 font-extrabold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 border-2 border-white/30 backdrop-blur-sm"
+            >
               <Link href="/services">Book Now</Link>
             </Button>
           </motion.div>
@@ -97,6 +118,7 @@ export function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        aria-hidden="true"
       >
         <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center shadow-lg">
           <motion.div

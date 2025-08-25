@@ -4,7 +4,12 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Plane } from "lucide-react"
+import { COMPANY, NAV_LINKS } from "@/lib/constants"
 
+/**
+ * Header component with navigation and branding
+ * Features smooth animations and responsive design
+ */
 export function Header() {
   return (
     <motion.header
@@ -12,6 +17,7 @@ export function Header() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm"
+      role="banner"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -21,11 +27,11 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3" aria-label="Home">
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <Plane className="w-6 h-6 text-white" />
+                <Plane className="w-6 h-6 text-white" aria-hidden="true" />
               </div>
-              <span className="text-xl font-bold text-gray-900">HirayaTripsPH</span>
+              <span className="text-xl font-bold text-gray-900">{COMPANY.name}</span>
             </Link>
           </motion.div>
 
@@ -35,19 +41,19 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden md:flex items-center space-x-8"
+            role="navigation"
+            aria-label="Main navigation"
           >
-            <Link href="/" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
-              Home
-            </Link>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
-              About Us
-            </Link>
-            <Link href="/services" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
-              Services
-            </Link>
-            <Link href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">
-              Contact
-            </Link>
+            {NAV_LINKS.map((link, index) => (
+              <Link 
+                key={index}
+                href={link.href} 
+                className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                aria-label={`Go to ${link.label.toLowerCase()} page`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </motion.nav>
 
           {/* CTA Button */}
@@ -56,8 +62,11 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Button asChild className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl shadow-lg">
-              <Link href="/contact">Book Your Trip</Link>
+            <Button 
+              asChild 
+              className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl shadow-lg"
+            >
+              <Link href="/contact" aria-label="Book your trip">Book Your Trip</Link>
             </Button>
           </motion.div>
         </div>

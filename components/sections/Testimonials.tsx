@@ -7,7 +7,20 @@ import Link from "next/link"
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
 import { useState } from "react"
 
-const testimonials = [
+/**
+ * Testimonial item interface
+ */
+interface Testimonial {
+  name: string
+  location: string
+  rating: number
+  text: string
+}
+
+/**
+ * Testimonials data
+ */
+const testimonials: Testimonial[] = [
   {
     name: "Maria Santos",
     location: "Manila",
@@ -28,23 +41,38 @@ const testimonials = [
   }
 ]
 
+/**
+ * Testimonials component featuring customer reviews in a carousel format
+ * Includes navigation controls and call-to-action buttons
+ */
 export function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  /**
+   * Navigate to the next testimonial
+   */
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
   }
 
+  /**
+   * Navigate to the previous testimonial
+   */
   const prevTestimonial = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   }
 
+  /**
+   * Navigate to a specific testimonial by index
+   */
   const goToTestimonial = (index: number) => {
     setCurrentIndex(index)
   }
 
+  const currentTestimonial = testimonials[currentIndex]
+
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white" aria-label="Customer testimonials">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,22 +100,22 @@ export function Testimonials() {
           <Card className="border-0 shadow-2xl bg-white rounded-2xl p-8 lg:p-12">
             <CardHeader className="text-center pb-6">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Quote className="w-8 h-8 text-primary" />
+                <Quote className="w-8 h-8 text-primary" aria-hidden="true" />
               </div>
               <CardTitle className="text-xl font-bold text-gray-900 mb-4">
-                {testimonials[currentIndex].name}
+                {currentTestimonial.name}
               </CardTitle>
               <p className="text-lg text-gray-600 font-medium">
-                {testimonials[currentIndex].location}
+                {currentTestimonial.location}
               </p>
             </CardHeader>
             <CardContent className="text-center">
               <blockquote className="text-lg sm:text-xl text-gray-700 leading-relaxed font-normal mb-6 italic">
-                "{testimonials[currentIndex].text}"
+                "{currentTestimonial.text}"
               </blockquote>
-              <div className="flex justify-center space-x-1 mb-6">
-                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+              <div className="flex justify-center space-x-1 mb-6" role="img" aria-label={`${currentTestimonial.rating} out of 5 stars`}>
+                {[...Array(currentTestimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" aria-hidden="true" />
                 ))}
               </div>
             </CardContent>
@@ -101,17 +129,20 @@ export function Testimonials() {
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
           className="flex justify-center items-center space-x-4 mb-12"
+          role="navigation"
+          aria-label="Testimonial navigation"
         >
           <Button
             onClick={prevTestimonial}
             variant="outline"
             size="icon"
             className="w-12 h-12 rounded-full border-2 border-gray-300 hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
+            aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6" aria-hidden="true" />
           </Button>
           
-          <div className="flex space-x-2">
+          <div className="flex space-x-2" role="tablist" aria-label="Testimonial indicators">
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -119,6 +150,9 @@ export function Testimonials() {
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex ? 'bg-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
                 }`}
+                role="tab"
+                aria-selected={index === currentIndex}
+                aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
           </div>
@@ -128,8 +162,9 @@ export function Testimonials() {
             variant="outline"
             size="icon"
             className="w-12 h-12 rounded-full border-2 border-gray-300 hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
+            aria-label="Next testimonial"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6" aria-hidden="true" />
           </Button>
         </motion.div>
 
@@ -142,11 +177,20 @@ export function Testimonials() {
           className="text-center space-y-4"
         >
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild size="lg" className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
-              <Link href="/contact">Get Started Today</Link>
+            <Button 
+              asChild 
+              size="lg" 
+              className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              <Link href="/contact" aria-label="Get started with our services">Get Started Today</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-10 py-6 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
-              <Link href="/about">Learn More About Us</Link>
+            <Button 
+              asChild 
+              size="lg" 
+              variant="outline" 
+              className="text-lg px-10 py-6 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              <Link href="/about" aria-label="Learn more about our company">Learn More About Us</Link>
             </Button>
           </div>
         </motion.div>

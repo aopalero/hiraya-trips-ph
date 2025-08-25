@@ -12,15 +12,51 @@
 }
 
 @layer components {
+  /* Hero section utilities */
   .hero-gradient {
     @apply bg-gradient-to-br from-primary/10 via-secondary/5 to-background;
   }
   
+  /* Card utilities */
   .card-hover {
     @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
   }
   
+  .card-shadow {
+    @apply shadow-xl hover:shadow-2xl transition-shadow duration-300;
+  }
+  
+  /* Text utilities */
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
+  
+  .text-shadow {
+    @apply drop-shadow-2xl;
+  }
+  
+  /* Button utilities */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/80 text-gray-900 font-semibold rounded-xl shadow-lg;
+  }
+  
+  /* Animation utilities */
+  .fade-in-up {
+    @apply animate-in fade-in slide-in-from-bottom-4 duration-700;
+  }
+  
+  .stagger-children > * {
+    @apply animate-in fade-in slide-in-from-bottom-4 duration-700;
+  }
+  
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 100ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 200ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 300ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 400ms; }
+  .stagger-children > *:nth-child(6) { animation-delay: 500ms; }
 }

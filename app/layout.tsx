@@ -3,22 +3,36 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Header } from "@/components/sections/Header"
 import Footer from "@/components/sections/Footer"
+import { COMPANY } from "@/lib/constants"
 
+/**
+ * Font configuration for Geist Sans
+ */
 const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 })
 
+/**
+ * Font configuration for Geist Mono
+ */
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 })
 
+/**
+ * Metadata configuration for the application
+ */
 export const metadata: Metadata = {
-  title: "HirayaTripsPH - Your Affordable Getaway Solution",
-  description: "From domestic flights to international adventures, ferry and bus tickets, or complete holiday packages – we make your dream trips simple, reliable, and budget-friendly.",
+  title: `${COMPANY.name} - ${COMPANY.tagline}`,
+  description: COMPANY.description,
 }
 
+/**
+ * Root layout component that wraps all pages
+ * Provides the basic HTML structure, fonts, and common components
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

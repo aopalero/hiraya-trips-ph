@@ -3,10 +3,57 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Plane, Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react"
+import { COMPANY, SOCIAL_LINKS, NAV_LINKS } from "@/lib/constants"
+import type { SocialLink, ContactInfo, NavLink } from "@/lib/types"
 
+/**
+ * Contact information data with icons
+ */
+const contactInfo: ContactInfo[] = [
+  {
+    icon: Phone,
+    text: COMPANY.contact.phone,
+    href: `tel:${COMPANY.contact.phone.replace(/\s+/g, '')}`
+  },
+  {
+    icon: Mail,
+    text: COMPANY.contact.email,
+    href: `mailto:${COMPANY.contact.email}`
+  },
+  {
+    icon: MapPin,
+    text: COMPANY.contact.location
+  }
+]
+
+/**
+ * Social media links data with icons
+ */
+const socialLinks: SocialLink[] = [
+  {
+    href: SOCIAL_LINKS[0].href,
+    icon: Facebook,
+    label: SOCIAL_LINKS[0].label
+  },
+  {
+    href: SOCIAL_LINKS[1].href,
+    icon: Instagram,
+    label: SOCIAL_LINKS[1].label
+  },
+  {
+    href: SOCIAL_LINKS[2].href,
+    icon: MessageCircle,
+    label: SOCIAL_LINKS[2].label
+  }
+]
+
+/**
+ * Footer component with company information, navigation, and contact details
+ * Features responsive grid layout and smooth animations
+ */
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white" role="contentinfo">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Information */}
@@ -19,12 +66,12 @@ export default function Footer() {
           >
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                <Plane className="w-6 h-6 text-white" />
+                <Plane className="w-6 h-6 text-white" aria-hidden="true" />
               </div>
-              <span className="text-2xl font-bold text-white">HirayaTripsPH</span>
+              <span className="text-2xl font-bold text-white">{COMPANY.name}</span>
             </div>
             <p className="text-gray-300 leading-relaxed">
-              Your trusted home-based travel partner, making affordable and stress-free travel accessible to every Filipino family.
+              {COMPANY.description}
             </p>
           </motion.div>
 
@@ -36,28 +83,21 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-gray-300 hover:text-white transition-colors">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
+            <nav aria-label="Footer navigation">
+              <ul className="space-y-2" role="list">
+                {NAV_LINKS.map((link, index) => (
+                  <li key={index} role="listitem">
+                    <Link 
+                      href={link.href} 
+                      className="text-gray-300 hover:text-white transition-colors"
+                      aria-label={`Go to ${link.label.toLowerCase()} page`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </motion.div>
 
           {/* Contact Info */}
@@ -68,19 +108,23 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-lg font-bold text-white mb-4">Contact Info</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-primary" />
-                <span className="text-gray-300">+63 912 345 6789</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary" />
-                <span className="text-gray-300">info@hirayatripsph.com</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span className="text-gray-300">Metro Manila, Philippines</span>
-              </li>
+            <ul className="space-y-3" role="list" aria-label="Contact information">
+              {contactInfo.map((info, index) => (
+                <li key={index} className="flex items-center space-x-3" role="listitem">
+                  <info.icon className="w-5 h-5 text-primary" aria-hidden="true" />
+                  {info.href ? (
+                    <a 
+                      href={info.href} 
+                      className="text-gray-300 hover:text-white transition-colors"
+                      aria-label={`Contact via ${info.text}`}
+                    >
+                      {info.text}
+                    </a>
+                  ) : (
+                    <span className="text-gray-300">{info.text}</span>
+                  )}
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -92,28 +136,18 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-lg font-bold text-white mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary/30 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5 text-primary" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary/30 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5 text-primary" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary/30 transition-colors"
-                aria-label="Messenger"
-              >
-                <MessageCircle className="w-5 h-5 text-primary" />
-              </a>
+            <div className="flex space-x-4" role="list" aria-label="Social media links">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center hover:bg-primary/30 transition-colors"
+                  aria-label={`Follow us on ${social.label}`}
+                  role="listitem"
+                >
+                  <social.icon className="w-5 h-5 text-primary" aria-hidden="true" />
+                </a>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -128,10 +162,10 @@ export default function Footer() {
         >
           <div className="text-center">
             <p className="text-lg text-gray-300 mb-2">
-              <span className="text-primary font-semibold">HirayaTripsPH</span> – Your Affordable Getaway Solution
+              <span className="text-primary font-semibold">{COMPANY.name}</span> – {COMPANY.tagline}
             </p>
             <p className="text-gray-400">
-              © 2025 HirayaTripsPH. All rights reserved.
+              © 2025 {COMPANY.name}. All rights reserved.
             </p>
           </div>
         </motion.div>

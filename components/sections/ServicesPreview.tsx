@@ -14,7 +14,49 @@ import {
   Clock
 } from "lucide-react"
 
-const services = [
+/**
+ * Service item interface for the services grid
+ */
+interface Service {
+  icon: React.ComponentType<{ className?: string }>
+  title: string
+  description: string
+  image: string
+  price: string
+  duration: string
+}
+
+/**
+ * Animation variants for staggered animations
+ */
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+/**
+ * Animation variants for individual items
+ */
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6
+    }
+  }
+}
+
+/**
+ * Services data for the grid layout
+ */
+const services: Service[] = [
   {
     icon: Plane,
     title: "Domestic Flights",
@@ -65,30 +107,25 @@ const services = [
   }
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-}
+/**
+ * Default fallback image for service cards
+ */
+const DEFAULT_SERVICE_IMAGE = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6
-    }
-  }
-}
-
+/**
+ * ServicesPreview component showcasing available travel services
+ * Features a responsive grid layout with service cards and smooth animations
+ */
 export function ServicesPreview() {
+  /**
+   * Handle image load errors by setting a fallback image
+   */
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.src = DEFAULT_SERVICE_IMAGE
+  }
+
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-20 overflow-hidden" aria-label="Travel services preview">
       {/* Background Image with Dark Overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -121,23 +158,22 @@ export function ServicesPreview() {
           whileInView="visible"
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          role="list"
+          aria-label="Available travel services"
         >
           {services.map((service, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <motion.div key={index} variants={itemVariants} role="listitem">
               <Card className="h-full overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-white rounded-2xl">
                 <div className="relative overflow-hidden">
                   <img
                     src={service.image}
-                    alt={service.title}
+                    alt={`${service.title} service`}
                     className="w-full h-52 object-cover transition-transform duration-300 hover:scale-110"
-                    onError={(e) => {
-                      // Fallback to a default travel image if the original fails to load
-                      e.currentTarget.src = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    }}
+                    onError={handleImageError}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent" />
                   <div className="absolute top-4 right-4 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg">
-                    <service.icon className="w-7 h-7 text-white" />
+                    <service.icon className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <div className="absolute bottom-4 left-4 bg-white/95 rounded-xl px-4 py-3 shadow-lg">
                     <p className="text-sm font-bold text-primary">{service.price}</p>
@@ -148,7 +184,7 @@ export function ServicesPreview() {
                     {service.title}
                   </CardTitle>
                   <div className="flex items-center text-sm text-gray-600 bg-gray-50 rounded-lg px-3 py-2">
-                    <Clock className="w-4 h-4 mr-2 text-primary" />
+                    <Clock className="w-4 h-4 mr-2 text-primary" aria-hidden="true" />
                     <span className="font-medium">{service.duration}</span>
                   </div>
                 </CardHeader>
@@ -156,8 +192,13 @@ export function ServicesPreview() {
                   <CardDescription className="text-base text-gray-700 mb-6 leading-relaxed font-normal">
                     {service.description}
                   </CardDescription>
-                  <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl shadow-lg">
-                    <Link href="/services">Book Now</Link>
+                  <Button 
+                    asChild 
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl shadow-lg"
+                  >
+                    <Link href="/services" aria-label={`Book ${service.title} service`}>
+                      Book Now
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -172,8 +213,14 @@ export function ServicesPreview() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button asChild size="lg" className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold">
-            <Link href="/services">View All Services →</Link>
+          <Button 
+            asChild 
+            size="lg" 
+            className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold"
+          >
+            <Link href="/services" aria-label="View all available services">
+              View All Services →
+            </Link>
           </Button>
         </motion.div>
       </div>
